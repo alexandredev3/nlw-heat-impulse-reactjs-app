@@ -8,6 +8,12 @@
   column-gap: 120px;
 
   position: relative;
+
+  .message {
+    &:nth-child(2) {
+      margin-left: 80px;
+    }
+  }
 }
 
 .contentSigned::before {

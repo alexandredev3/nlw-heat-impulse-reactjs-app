@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import { motion } from 'framer-motion';
 
 import logoImg from '../../assets/logo.svg';
 
 import styles from './styles.module.scss';
 
 import { api } from '../../services/api';
+import { User } from '../../contexts/auth';
 
-type User = {
-  id: string;
-  name: string;
-  avatar_url: string;
-}
+import { Message } from '../Message';
 
 type Message = {
   id: string;
@@ -62,19 +60,29 @@ export function MessageList() {
       <img src={logoImg} alt="DoWhile 2021" />
 
       <ul className={styles.messageList}>
-        {messages.map(message => {
+        {messages.map((message, index) => {
           return (
-            <li className={styles.message} key={message.id}>
-              <p className={styles.messageContent}>{message.text}</p>
-              <div className={styles.messageUser}>
-                <div className={styles.userAvatar}>
-                  <img src={message.user.avatar_url} alt={message.user.name} />
-                </div>
-                <span>
-                  {message.user.name}
-                </span>
-              </div>
-            </li>
+            <motion.li
+              className={styles.message}
+              key={message.id}
+              transition={{
+                duration: 0.4,
+                delay: index / 5,
+              }}
+              initial={{
+                opacity: 0,
+                translateY: -50,
+              }}
+              animate={{
+                opacity: 1,
+                translateY: 0,
+              }}
+            >
+            <Message
+              text={message.text}
+              user={message.user}
+            />
+            </motion.li>
           );
         })}
       </ul>
