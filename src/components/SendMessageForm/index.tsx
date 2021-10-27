@@ -1,6 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { VscSignOut } from 'react-icons/vsc';
 import { VscGithubInverted } from 'react-icons/vsc';
+import { toast } from 'react-hot-toast';
+
 import { useAuth } from '../../contexts/auth';
 import { api } from '../../services/api';
 
@@ -15,7 +17,7 @@ export function SendMessageForm() {
     event.preventDefault();
 
     if (!message.trim()) {
-      alert('Type something!');
+      toast('Digite algo...');
       return;
     }
 
@@ -25,9 +27,10 @@ export function SendMessageForm() {
       });
 
       setMessage('');
+      toast('Mensagem enviada com sucesso!');
     } catch (err) {
       console.error(err);
-      alert('Failed to send your message. Try again later.');
+      toast('Failed to send your message. Try again later.');
     }
   }
 
@@ -58,7 +61,10 @@ export function SendMessageForm() {
           value={message}
         />
 
-        <button type="submit">Enviar mensagem</button>
+        <button
+          type="submit"
+          disabled={!message.trim()}
+        >Enviar mensagem</button>
       </form>
     </div>
   )

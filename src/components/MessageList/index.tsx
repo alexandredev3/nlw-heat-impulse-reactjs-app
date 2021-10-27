@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -51,7 +52,7 @@ export function MessageList() {
       setMessages(data);
     }).catch(err => {
       console.error(err);
-      alert('Failed to load the messages :(, try again later');
+      toast('Failed to load the messages :(, try again later');
     })
   }, []);
 

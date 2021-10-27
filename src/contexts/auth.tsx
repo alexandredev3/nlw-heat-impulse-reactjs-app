@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { api } from "../services/api";
 
 type AuthProviderProps = {
@@ -50,7 +51,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       setUser(user);
     } catch (err) {
       console.log(err);
-      alert('Failed to signIn with Github. Try again later.')
+      toast('Failed to signIn with Github. Try again later.')
     }
   }
 
@@ -71,7 +72,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         setUser(data);
       }).catch(err => {
         console.log(err);
-        alert('Failed to load user data. Try again later.');
+        toast('Failed to load user data. Try again later.');
       });
     }
   }, []);

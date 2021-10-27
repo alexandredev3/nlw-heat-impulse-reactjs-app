@@ -122,8 +122,13 @@
 
     transition: filter 200ms;
 
-    &:hover {
+    &:not(:disabled):hover {
       filter: brightness(0.9);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 }
